@@ -4,12 +4,17 @@
 	<meta charset="UTF-8">
 	<title>template</title>
 
-	<!-- bower -->
-	<link rel="stylesheet" href="bower_components/normalize.css/normalize.css">
+	<!-- build:css css/vendor.css -->
+	<!-- bower:css -->
+	<link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
+	<link rel="stylesheet" href="bower_components/tooltipster/css/tooltipster.css" />
+	<!-- endbower -->
+	<!-- endbuild -->
 
-	<!-- CSS -->
+	<!-- build:css css/combined.css -->
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/button.css">
+	<!-- endbuild -->
 
 </head>
 <body>
@@ -22,12 +27,17 @@
 		</form>
 	</div>
 
-	<!-- bower JS -->
+	<!-- build:js js/vendor.js -->
+	<!-- bower:js -->
 	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/tooltipster/js/jquery.tooltipster.min.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
 
-	<!-- JS -->
+	<!-- build:js js/combined.js -->
 	<script src="js/plugins.js"></script>
 	<script src="js/main.js"></script>
+	<!-- endbuild -->
 
 </body>
 </html>
