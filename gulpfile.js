@@ -8,8 +8,8 @@ var gulp = require('gulp'),
     useref = require('gulp-useref'),
     gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
-    minifyCss = require('gulp-minify-css')
-
+    minifyCss = require('gulp-minify-css'),
+    sass = require('gulp-sass')
 
 // Start local server
 gulp.task('connect', function() {
@@ -50,6 +50,7 @@ gulp.task('wiredep', function () {
 // Watch
 gulp.task('watch', function () {
   gulp.watch(['./app/*.html'], ['html']);
+  gulp.watch(['./app/scss/*.scss'], ['sass']);
   gulp.watch(['./app/css/*.css'], ['css']);
   gulp.watch(['./app/js/*.js'], ['js']);
   gulp.watch(['bower.json'], ['wiredep']);
@@ -71,6 +72,13 @@ gulp.task('build', function () {
         .pipe(assets.restore())
         .pipe(useref())
         .pipe(gulp.dest('dist'));
+});
+
+// Sass
+gulp.task('sass', function () {
+    gulp.src('app/scss/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('app/css'));
 });
 
 // Default
