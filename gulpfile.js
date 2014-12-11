@@ -9,7 +9,11 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
     minifyCss = require('gulp-minify-css'),
-    sass = require('gulp-sass')
+    sass = require('gulp-sass'),
+    jade = require('jade'),
+    gulpJade = require('gulp-jade'),
+    notify = require("gulp-notify"),
+    uncss = require('gulp-uncss')
 
 // Start local server
 gulp.task('connect', function() {
@@ -71,7 +75,8 @@ gulp.task('build', function () {
         .pipe(gulpif('*.css', minifyCss()))
         .pipe(assets.restore())
         .pipe(useref())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .pipe(notify({ message: 'Build dist!' }));
 });
 
 // Sass
@@ -83,3 +88,23 @@ gulp.task('sass', function () {
 
 // Default
 gulp.task('default', ['connect', 'watch']);
+
+// Jade test-task
+gulp.task('jade', function () {
+  return gulp.src('./app/jade/*.jade')
+    .pipe(gulpJade({
+      jade: jade,
+      pretty: true
+    }))
+    .pipe(gulp.dest('./app/'))
+    .pipe(notify({ message: 'Jade task complete' }));
+})
+
+//Uncss test-task
+gulp.task('uncss', function() {
+    return gulp.src('./app/css/main.css')
+        .pipe(uncss({
+            html: ['http://site-spb.ru/']
+        }))
+        .pipe(gulp.dest('./out'));
+});
