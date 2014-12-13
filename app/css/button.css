@@ -3,5 +3,8 @@
   padding: 2px 6px; }
 
 .btn-blue {
-  border-color: #056;
-  background: #DD3030; }
+  border-color: #156;
+  background: #DD3030;
+  -webkit-transform: rotate(7deg);
+      -ms-transform: rotate(7deg);
+          transform: rotate(7deg); }

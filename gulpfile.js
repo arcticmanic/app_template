@@ -13,7 +13,9 @@ var gulp = require('gulp'),
     jade = require('jade'),
     gulpJade = require('gulp-jade'),
     notify = require("gulp-notify"),
-    uncss = require('gulp-uncss')
+    uncss = require('gulp-uncss'),
+    rename = require('gulp-rename'),
+    autoprefixer = require('gulp-autoprefixer')
 
 // Start local server
 gulp.task('connect', function() {
@@ -52,10 +54,11 @@ gulp.task('wiredep', function () {
 });
 
 // Watch
-gulp.task('watch', function () {
-  gulp.watch(['./app/*.html'], ['html']);
+gulp.task('watch', function (){
+  gulp.watch(['./app/jade/*.jade'], ['jade']);
+   gulp.watch(['./app/*.html'], ['html']);
   gulp.watch(['./app/scss/*.scss'], ['sass']);
-  gulp.watch(['./app/css/*.css'], ['css']);
+  gulp.watch(['./app/css/*.css'], ['css','autoprefixer']);
   gulp.watch(['./app/js/*.js'], ['js']);
   gulp.watch(['bower.json'], ['wiredep']);
 });
@@ -107,4 +110,26 @@ gulp.task('uncss', function() {
             html: ['http://site-spb.ru/']
         }))
         .pipe(gulp.dest('./out'));
+});
+
+// Rename Task
+gulp.task('rename', function(){
+  gulp.src('app/css/main.css')
+  .pipe(rename('pretty_styles.css'))
+  .pipe(gulp.dest('build/css/'));
+});
+
+// Notify Task
+// gulp.task('notify', function(){
+//   gulp.src('./app/css/main.css')
+//   .pipe(notify('CSS File was changed!'));
+// });
+
+// Autoprefixer Task
+gulp.task('autoprefixer', function(){
+  gulp.src('app/css/*.css')
+  .pipe(autoprefixer({
+    browsers: ['last 3 versions']
+  }))
+  .pipe(gulp.dest('app/css'));
 });
